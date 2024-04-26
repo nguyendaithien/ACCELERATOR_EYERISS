@@ -1,4 +1,4 @@
-module register #(parameter DATA_WIDTH = 16)  (
+module REGG #(parameter DATA_WIDTH = 16)  (
 		clk,
 		rst_n,
 		set_reg,
@@ -6,22 +6,23 @@ module register #(parameter DATA_WIDTH = 16)  (
 		reg_out,
 		);
 
-  input clk;
-	input rst_n;
-	input set_reg;
-  input signed [DATA_WIDTH-1:0] reg_in ;  
-  output signed [DATA_WIDTH-1:0] reg_out; 
-	reg signed   [DATA_WIDTH-1:0] internal_data;
-	reg signed   [DATA_WIDTH-1:0] internal_signal;
+  input clk     ;
+	input rst_n   ;
+	input set_reg ;
 
-	always @(posedge clk or rst_n) begin
+  input signed  [DATA_WIDTH-1:0] reg_in         ;  
+  output signed [DATA_WIDTH-1:0] reg_out        ; 
+	reg signed    [DATA_WIDTH-1:0] internal_data  ;
+	reg signed    [DATA_WIDTH-1:0] internal_signal;
+
+	always @(posedge clk or negedge rst_n) begin
 		if(!rst_n) begin
 			internal_data <= 0;
 		end
 		else begin
 			internal_data <= internal_signal;
 		end
-		end
+	end
 
 	always @(*) begin
 		if(set_reg) begin

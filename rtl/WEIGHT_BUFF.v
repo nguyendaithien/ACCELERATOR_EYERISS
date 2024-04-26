@@ -22,4 +22,3 @@ module WEIGHT_BUFF #(parameter DATA_WIDTH = 8) (
 
 	assign wgt_out = weight;
 endmodule
-
