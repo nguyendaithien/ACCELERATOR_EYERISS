@@ -38,8 +38,8 @@ module FIFO_ASYNCH #(parameter DATA_WIDTH = 16, FIFO_SIZE = 10, ADD_WIDTH = 3) (
 			reg_we = wr_en;
 	 end
 
-	 always @(posedge clk1 or negedge rd_clr) begin
-	 	 if(~rd_clr) begin
+	 always @(posedge clk1 or posedge rd_clr) begin
+	 	 if(rd_clr) begin
 		 		rd_ptr <= 0;
 		 end
 		 else if(reg_re) begin
@@ -50,8 +50,8 @@ module FIFO_ASYNCH #(parameter DATA_WIDTH = 16, FIFO_SIZE = 10, ADD_WIDTH = 3) (
 				data_read <= 0;
 		end
 	end
-	always @(posedge clk2 or negedge wr_clr) begin
-			if(~wr_clr) begin
+	always @(posedge clk2 or posedge wr_clr) begin
+			if(wr_clr) begin
 			  wr_ptr <= 0;
 			end
 			else if(reg_we) begin
